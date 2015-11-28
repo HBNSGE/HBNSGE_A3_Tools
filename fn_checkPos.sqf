@@ -1,26 +1,24 @@
-/* ---------------------------------------------------------
-Function: HBNSGE_fnc_checkPos
-
-Description:
-	Checks if the given array is a valid position array.
-	If not, it returns an empty array. So after calling
-	this function, you should check for an empty array.
-	
-Parameters:
-	Any
-	
-Example:
-	_position = _position call HBNSGE_fnc_checkPos;
-	
-Returns:
-	Position Array - [X,Y,Z]
-	
-Author:
-	Buschmann
-	
-Since:
-	1.0.0
---------------------------------------------------------- */
+/*!
+ * \page fnc_checkpos HBNSGE_fnc_checkPos
+ * \brief Checks if the given parameter is a valid position array.
+ * 
+ * If not, it returns and empty array, otherwise it returns the input array if it is valid.
+ * 
+ * So, after calling this function, you should check for an empty array
+ * 
+ * \param ANY
+ * 
+ * \return ARRAY
+ * 
+ * \par Example
+ * \code{.unparsed}
+ * _position = _position call HBNSGE_fnc_checkPos;
+ * \endcode
+ * 
+ * \author Buschmann
+ * 
+ * \since 1.0.0
+ */
 
 _pos = _this;
 

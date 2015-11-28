@@ -1,29 +1,25 @@
-/* ---------------------------------------------------------
-Function: HBNSGE_fnc_heliFlyTo
-
-Description:
-	Lets a helicopter fly from one point to another.
-	
-Parameters:
-	0: OBJECT - the helicopter to use
-	1: OBJECT, POSITION or MARKER - the destination position
-	2 (optional): NUMBER - the fly height while reaching the destination
-	3 (optional): NUMBER - the destination height, script will end or callback will be executed after heli has reached this height
-	4 (Optional): CODE - code that is called after the helicopter has reached its extraction position (default: {})
-				  STRING - script file to execute after the helicopter has reached its extraction position
-	
-Example:
-	_scriptHandle = [_heli, "destinationMarker"] spawn HBNSGE_fnc_heliFlyTo;
-	
-Returns:
-	NOTHING
-	
-Author:
-	Buschmann
-	
-Since:
-	1.0.0
---------------------------------------------------------- */
+/*!
+ * \page fnc_heliflyto HBNSGE_fnc_heliFlyTo
+ *
+ * \brief Lets a helicopter fly from on point to anohter.
+ * 
+ * \param 0 OBJECT - The helicopter to use.
+ * \param 1 OBJECT, position ARRAY or marker STRING - The destination position.
+ * \param 2 NUMBER - The altitude while flying to the destination.
+ * \param 3 NUMBER - The altitude at the destination. Values lower 0 disable it. (optional, default: -1)
+ * \param 4 CODE or STRING - Callback code or script file that will be executed after the helicopter has reached it's destination and optional destination altitiude.
+ * 
+ * \return Script Handle
+ * 
+ * \par Example
+ * \code{.unparsed}
+ * _scriptHandle = [_heli, "destinationMarker"] spawn HBNSGE_fnc_heliFlyTo;
+ * \endcode
+ * 
+ * \author Buschmann
+ *
+ * \since 1.0.0
+ */
 
 if (!isServer) exitWith {};
 

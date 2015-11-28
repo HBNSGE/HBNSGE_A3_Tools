@@ -1,30 +1,24 @@
-/* ---------------------------------------------------------
-Function: HBNSGE_fnc_getRadialPositions
-
-Description:
-	Returns an array of positions around an object or in a circle
-    in front of the object.	Amount of positions returned is
-	determined by the count of members in the given group.
-	
-Parameters:
-	0: OBJECT - the object to get positions around for
-	1: GROUP - the group that should go in position around the object
-	2: NUMBER - the radius of the position circle around the object
-	3: BOOL - set to true to position around object, set to false to
-	          position in front of object (default: true)
-	
-Example:
-	_position = (group player) call HBNSGE_fnc_checkPos;
-	
-Returns:
-	ARRAY of Positions (AGL) - [X,Y,Z]
-	
-Author:
-	Buschmann
-	
-Since:
-	1.0.0
---------------------------------------------------------- */
+/*!
+ * \page fnc_getradialpositions HBNSGE_fnc_getRadialPositions
+ *
+ * \brief Returns an array of positions around an object or in a circle in front of the object.	
+ *
+ * \param 0 OBJECT - The object to get positions around for.
+ * \param 1 GROUP - The group that should go into position around the object.
+ * \param 2 NUMBER - Radius of the positions' circle around the object. (optional, default: 7)
+ * \param 3 BOOLEAN - Set to true get positions around object, set to false to get positions in front of object (optional, default: true)
+ * 
+ * \return ARRAY - Positions (AGL)
+ * 
+ * \par Example
+ * \code{.unparsed}
+ * _destinations = [heli, battleGroup, 10] call HBNSGE_fnc_getRadialPositions
+ * \endcode
+ * 
+ * \author Buschmann
+ 
+ * \since 1.0.0
+ */
 
 private ["_obj","_grp","_rad","_around","_pos","_relPos","_cnt","_offset","_destinations"];
 

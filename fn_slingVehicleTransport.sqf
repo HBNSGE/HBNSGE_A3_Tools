@@ -1,36 +1,32 @@
-/* ---------------------------------------------------------
-Function: HBNSGE_fnc_slingVehicleTransport
-
-Description:
-	Transports a vehicle from one point to another via helicopter
-	sling load and flies back to start position.
-	
-Parameters:
-	0: OBJECT - the helicopter to use
-	1: OBJECT - the cargo to lift
-	2: OBJECT, POSITION or MARKER - the destination position
-	3 (optional): OBJECT, POSITION or marker STRING - the extraction position, if not specified it will be the initial heli position
-	4 (optional): NUMBER - notification type
-					0 - no notification (default)
-					1 - notification
-					2 - chat message
-					3 - radio message
-	5 (optional): STRING - notification string or radio message class from description.ext, notification and chat message can include a placeholder for map grid
-	6 (Optional): CODE - code that is called after the helicopter has reached its extraction position, _this is the helicopter (default: {})
-				  STRING - script file to execute after the helicopter has reached its extraction position, _this is the helicopter
-	
-Example:
-	_scriptHandle = [_heli, _mrap, "destinationMarker"] spawn HBNSGE_fnc_slingVehicleTransport;
-	
-Returns:
-	Script Handler
-	
-Author:
-	Buschmann
-	
-Since:
-	1.0.0
---------------------------------------------------------- */
+/*!
+ * \page fnc_slingVehicleTransport HBNSGE_fnc_slingVehicleTransport
+ *
+ * \brief Transports an object from one point to another via helicopter sling load and flies back to start position.
+ * 
+ * \param 0 OBJECT - The helicopter to use.
+ * \param 1 OBJECT - The cargo to lift.
+ * \param 2 OBJECT, POSITION or MARKER - The destination position.
+ * \param 3 OBJECT, POSITION or MARKER - The Extraction position, if not specified it will be the initial heli position. (optional)
+ * \param 4 NUMBER - Notification type.  (optional)
+ * 	\arg \c 0 - no notification (default)
+ * 	\arg \c 1 - notification
+ * 	\arg \c 2 - chat message
+ * 	\arg \c 3 - radio message
+ * \param 5 STRING - Notification string or radio message class from description.ext, notification and chat message can include a placeholder for map grid. (optional)
+ * \param 6 CODE or STRING - Code or script file that is executed after the helicopter has reached its extraction position. _this is the helicopter.
+ * 
+ * \return Script Handle
+ * 
+ * \par Example
+ * \code{.unparsed}
+ * _scriptHandle = [heli, mrap, "destinationMarker"] spawn HBNSGE_fnc_slingVehicleTransport;
+ * \endcode
+ * 
+ * \author Buschmann
+ *
+ * \since 1.0.0
+ */
+ 
 
 if (!isServer) exitWith {};
 
@@ -49,6 +45,8 @@ _callback		= param [6, {}, [{},""]];
 
 // exit script if cargo is not an object
 if (isNull _cargo) exitWith {["You have to specify a valid cargo object."] call BIS_fnc_error;};
+
+// exit script if heli is not an object or a helicopter
 if (isNull _heli) exitWith {["You have to specify a valid heli object."] call BIS_fnc_error;};
 if (!(_heli isKindOf "Helicopter")) exitWith {["You have to specify a helicopter."] call BIS_fnc_error;};
 
@@ -61,6 +59,7 @@ if (count _start != 3) exitWith {["You have to specify a valid start position."]
 _dest = _dest call HBNSGE_fnc_getPos;
 if (count _dest != 3) exitWith {["You have to specify a valid destination position."] call BIS_fnc_error;};
 
+// if heli is near to the cargo, initiate the slingload, otherwise order the heli to fly to the cargo's position and slingload it
 if (((getPos _heli) distance (getPos _cargo)) < 12) then {
 	_heli setSlingLoad _cargo;
 } else {
@@ -76,6 +75,7 @@ if (((getPos _heli) distance (getPos _cargo)) < 12) then {
 
 };
 
+// send the heli to the destination and wait until it has reached it
 if ((alive _heli) && (alive _cargo)) then
 {
 	private ["_flyToHandle"];
@@ -97,6 +97,8 @@ if ((alive _heli) && (alive _cargo)) then
 	};
 };
 
+
+// send notifications if configured
 if ((_notification > 0) && (alive _heli) && (alive _cargo)) then {	
 
 	sleep 3;
@@ -113,7 +115,7 @@ if ((_notification > 0) && (alive _heli) && (alive _cargo)) then {
 		_notifyMsg = [_notifyMsg] call BIS_fnc_localize;
 		_picture = (gettext (_cfgVeh >> "picture")) call bis_fnc_textureVehicleIcon;
 		_respawnName = format [_notifyMsg ,mapgridposition (position _cargo)];
-		[["RespawnVehicle",[_displayName,_respawnName,_picture]],"BIS_fnc_showNotification",_side] call bis_fnc_mp;
+		[["RespawnVehicle",[_displayName,_respawnName,_picture]],"BIS_fnc_showNotification",_side] call BIS_fnc_MP;
 	};
 	
 	if (_notification == 2) then {
@@ -128,6 +130,8 @@ if ((_notification > 0) && (alive _heli) && (alive _cargo)) then {
 	};
 };
 
+
+// send heli back to start position and wait until it has reached it
 if (alive _heli) then {
 	sleep 3;
 
@@ -141,6 +145,7 @@ if (alive _heli) then {
 	};
 };
 
+//execute callback if heli has reached the start position
 if (alive _heli) then {
 	if (typeName _callback == "CODE") then {
 		_heli call _callback;

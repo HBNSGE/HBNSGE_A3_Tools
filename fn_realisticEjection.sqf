@@ -1,27 +1,23 @@
-/* ---------------------------------------------------------
-Function: HBNSGE_fnc_realisticEjection
-
-Description:
-	Orders the given group to leave the given vehicle and take radial
-	positions around the vehicle.
-	
-Parameters:
-	0: OBJECT - vehicle to leave
-	1 (optional): GROUP - group to leave vehicle, if null, all units in cargo will leave.
-	2 (optional): NUMBER - radius around vehicle to take positions in
-	
-Example:
-	[_heli, _battleGroup, 7] call HBNSGE_fnc_realisticEjection;
-	
-Returns:
-	Position Array - [X,Y,Z]
-	
-Author:
-	Buschmann
-	
-Since:
-	1.0.0
---------------------------------------------------------- */
+/*!
+ * \page fnc_realisticejection HBNSGE_fnc_realisticEjection
+ *
+ * \brief Orders the given group to leave the given vehicle and take radial positions around the vehicle.
+ * 
+ * \param 0 OBJECT - Vehicle to leave.
+ * \param 1 GROUP (optional) - Group to leave vehicle. If null, all units in cargo will leave.
+ * \param 2 NUMBER (optiona) - Radius around vehicle to take positions in. (default: 7)
+ * 
+ * \return Nothing
+ * 
+ * \par Example
+ * \code{.unparsed}
+ * [_heli, _battleGroup, 7] call HBNSGE_fnc_realisticEjection;
+ * \endcode
+ * 
+ * \author Buschmann
+ *
+ * \since 1.0.0
+ */
 
 private ["_veh","_grp","_cargo","_radius","_destinations","_nearest"];
 

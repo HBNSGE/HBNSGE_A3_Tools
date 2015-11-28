@@ -1,39 +1,42 @@
-/* ---------------------------------------------------------
-Function: HBNSGE_fnc_slingVehicleSpawn
-
-Description:
-	Spawns a vehicle and transports it via helicopter slingload to the destination position.
-	
-	Can be an existing vehicle or a string to create a n
-	
-Parameters:
-	0:
-	  OBJECT - existing vehicle that will be transported
-	  STRING - vehicle name that will be created and transported
-	1: SIDE - the side for which the vehicle will be slingload spawned, used to determine the helicopter type
-	2: OBJECT, MARKER or POSITION - start point from where the vehicle will be transported to destination, if vehicle is not at that position, it
-									will be set to that position
-	3: OBJECT, MARKER or POSITION - destination where the vehicle will be transported to
-	4 (optional): NUMBER - delay to wait until slingload starts (default: no delay)
-	5 (optional): NUMBER - notification type
-					0 - no notification (default)
-					1 - notification
-					2 - chat message
-					3 - radio message
-	6 (optional): STRING - notification string or radio message class from description.ext, notification and chat message can include a placeholder for map grid
-	
-Example:
-	["B_MRAP_01_F", west, "startMarker", "destinationMarker"] call HBNSGE_fnc_slingVehicleSpawn;
-	
-Returns:
-	NOTHING
-	
-Author:
-	Buschmann
-	
-Since:
-	1.0.0
---------------------------------------------------------- */
+/*!
+ * \page fnc_slingVehicleSpawn HBNSGE_fnc_slingVehicleSpawn
+ * \brief Spawns a new vehicle in a more realistic way via helicopter slingload.
+ *
+ * This function can either resupply an external spawned vehicle (0) to a destination (3) or
+ * can spawn the vehicle (0) by itself and transports it to the destination (3) point. When calling
+ * this function, an appropriate helicopter will be spawned at the start postion (2) and the
+ * vehicle that should be delivered as a respawn will be either set to the heli's position if
+ * it has been spawned by an external command/function or it will also be spawned at the heli's position by this script.
+ *
+ * The helicopter will then slingload the vehicle and transport it to the real spawn position for the troops.
+ * 
+ * You can optionally set a delay (4) for the start of the delivery as well as a notification (5,6) about successfull
+ * delivery. 
+ * 
+ * \param 0 OBJECT or STRING - Externally spawned vehicle that will be transported or string of a vehicle class to be spawned and transported by this script.
+ * \param 1 SIDE - The side for which the vehicle will be slingloaded, used to determine the helicopter type.
+ * \param 2 OBJECT, MARKER or POSITION - Start point from where the vehicle will be transported to destination (3), if vehicle is not at that position, it will be set to that position.
+ * \param 3 OBJECT, MARKER or POSITION - Destination where the vehicle will be transported to.
+ * \param 4 NUMBER - Delay to wait until slingload starts (optional) (default: no delay)
+ * \param 5 NUMBER - Notification type.
+ *		\arg \c 0 - no notification (default)
+ * 		\arg \c 1 - notification
+ * 		\arg \c 2 - chat message
+ * 		\arg \c 3 - radio message
+ * \param 6 STRING - Notification string or radio message class from description.ext, notification and chat message can include a placeholder for map grid. (optional)
+ * 
+ * \par Example
+ * \code{.unparsed}
+ * ["B_MRAP_01_F", west, "startMarker", "destinationMarker"] call HBNSGE_fnc_slingVehicleSpawn;
+ * \endcode
+ *
+ * \return Nothing
+ *
+ * \author Buschmann
+ *
+ * \since 1.0.0
+ */
+ 
 
 if (!isServer) exitWith {};
 

@@ -1,29 +1,23 @@
-/* ---------------------------------------------------------
-Function: HBNSGE_fnc_getNearest
-
-Description:
-	Returns the nearest position out of an array of positions.
-	Compoared to objects position.
-	
-	Returns an array containing the nearest position and the index in the positions array.
-	
-Parameters:
-	0: OBJECT - any object
-	1: ARRAY of ARRAYs - position arrays in an array
-	
-Example:
-	[player, [[1,2,3],[4,5,6],[7,8,9],[10,11,12]]] call HBNSGE_fnc_getNearest;
-	
-Returns:
-	ARRAY - 0: nearest position, 1: index in provided array
-	
-Author:
-	Buschmann
-	
-Since:
-	1.0.0
---------------------------------------------------------- */
-
+/*!
+ * \page fnc_getnearest HBNSGE_fnc_getNearest
+ * \brief Returns the nearest position out of an array of positions compared to object's position.
+ * 
+ * \param 0 OBJECT - Any object.
+ * \param 1 ARRAY of ARRAYs - List of positions.
+ * 
+ * \return ARRAY
+ *	\arg \c 0 - nearest position
+ *	\arg \c 1 - index of this position in the checked array
+ * 
+ * \par Example
+ * \code{.unparsed}
+ * _nearestPos = [player, [[1,2,3],[4,5,6],[7,8,9],[10,11,12]]] call HBNSGE_fnc_getNearest;
+ * \endcode
+ * 
+ * \author Buschmann
+ * \since 1.0.0
+ */
+ 
 private ["_obj","_positions","_nearest","_distance","_dist","_idx"];
 
 _obj		= param [0, objNull, [objNull]];
