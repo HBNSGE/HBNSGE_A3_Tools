@@ -16,5 +16,8 @@ class HBNSGE
 		class leaveAndMove{};
 		class realisticEjection{};
 		class heliLanding{};
+		class isWeapon{};
+		class getWeapons{};
+		class getMagazines{};
 	};
 };
