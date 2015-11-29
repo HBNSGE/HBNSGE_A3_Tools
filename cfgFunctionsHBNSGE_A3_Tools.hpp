@@ -19,5 +19,7 @@ class HBNSGE
 		class isWeapon{};
 		class getWeapons{};
 		class getMagazines{};
+		class dynamicSupply{};
+		class getUnits{};
 	};
 };

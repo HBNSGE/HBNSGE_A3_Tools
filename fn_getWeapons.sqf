@@ -20,9 +20,12 @@
  * \since 1.0.0
  */
 
-private ["_weapons"];
+private ["_weapons", "_units"];
 
 _weapons = [];
+_units = _this call HBNSGE_fnc_getUnits;
+
+if (count _units == 0) exitWith {[]};
 
 // extracts the strings from an array that in fact represents a weapon
 _fn_extractWeapons = {
@@ -37,38 +40,8 @@ _fn_extractWeapons = {
 	_wps;
 };
 
-// get all weapons for a single object
-if (typeName _this == "OBJECT") then {
-	if (isNull _this) exitWith {};
-	_weapons = (weapons _this) call _fn_extractWeapons;
-};
-
-// get all weapons of a group
-if (typeName _this == "GROUP") then {
-	if (isNull _this) exitWith {};
-	{
-		_weapons append ((weapons _x) call _fn_extractWeapons);
-	} forEach units _this;
-};
-
-// get all weapons of a side
-if (typeName _this == typeName west) then {
-	{
-		if (side _x == _this) then {
-			_weapons append ((weapons _x) call _fn_extractWeapons);
-		};
-	} forEach allUnits;
-}; 
-
-
-// get all weapons of units in an array
-if (typeName _this == "ARRAY") then {
-	if ((count _this) == 0) exitWith {};
-	{
-		if (!isNull _x) then {
-			_weapons append ((weapons _x) call _fn_extractWeapons);
-		};
-	} forEach _this;
-};
+{
+	_weapons append ((weapons _x) call _fn_extractWeapons);
+} forEach _units;
 
 _weapons;
