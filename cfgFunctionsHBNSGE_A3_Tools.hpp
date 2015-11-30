@@ -21,5 +21,6 @@ class HBNSGE
 		class getMagazines{};
 		class dynamicSupply{};
 		class getUnits{};
+		class manualSectorControl{};
 	};
 };
