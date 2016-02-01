@@ -24,6 +24,8 @@
  * \since 1.0.0
  */
 
+if (!isServer) exitWith {};
+ 
 private ["_logic", "_logicParent","_table","_laptop","_buildTent"];
 
 _logic		= param [0, objNull, [objNull]];
@@ -57,7 +59,9 @@ _laptop attachTo [_table, [0,0,0.56]];
 _laptop allowDamage false;
 _laptop enableSimulation false;
 
-_laptop addAction ["Take control", {[_this select 3, side (_this select 1)] call BIS_fnc_moduleSector}, _logicParent, 6, true, true, "", "(vehicle _this == _this) AND ((_target distance2D _this) < 2)"];
+// _laptop addAction ["Take control", {[_this select 3, side (_this select 1)] call BIS_fnc_moduleSector}, _logicParent, 6, true, true, "", "(vehicle _this == _this) AND ((_target distance2D _this) < 2)"];
+
+[_laptop, ["Take control", {[_this select 3, side (_this select 1)] call BIS_fnc_moduleSector}, _logicParent, 6, true, true, "", "(vehicle _this == _this) AND ((_target distance2D _this) < 2)"]] remoteExecCall ["addAction", 0, true];
 
 if (_buildTent) then {
 	private ["_tent", "_logicPos"];
